@@ -8,6 +8,10 @@ FROM golang:1.18-alpine as builder
 
 RUN apk add --no-cache gcc musl-dev linux-headers git
 
+# Set up blst environmkent variables
+ENV CGO_CFLAGS="-O -D__BLST_PORTABLE__"
+ENV CGO_CFLAGS_ALLOW="-O -D__BLST_PORTABLE__"
+
 # Get dependencies - will also be cached if we won't change go.mod/go.sum
 COPY go.mod /go-ethereum/
 COPY go.sum /go-ethereum/
